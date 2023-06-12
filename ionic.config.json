@@ -1,0 +1,8 @@
+{
+  "name": "BeatBuzz",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "4e4c7701"
+}
