@@ -1,0 +1,12 @@
+#person-icon {
+  margin-right: 1rem;
+}
+
+ion-label h2 {
+  color: var(--ion-color-dark) !important;
+  font-weight: 700 !important;
+}
+
+ion-label p {
+  color: var(--ion-color-light-tint) !important;
+}

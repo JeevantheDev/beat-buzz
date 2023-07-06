@@ -1,0 +1,7 @@
+.channel-thumbnail {
+  display: flex;
+  flex-direction: column;
+  width: 110px;
+  height: 110px;
+  cursor: pointer;
+}

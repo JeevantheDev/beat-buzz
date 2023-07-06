@@ -1,0 +1,4 @@
+.form-container .form-item input,
+.form-container .form-item label {
+  color: var(--ion-color-light);
+}

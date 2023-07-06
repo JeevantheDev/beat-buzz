@@ -1,0 +1,29 @@
+.all-songs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.all-songs-container .divide-x:last-child {
+  display: none;
+}
+
+.add-song {
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-light);
+  gap: 10px;
+  background: inherit;
+}
+
+.add-song ion-button.add-song-btn {
+  height: 45px;
+  margin: 0;
+  border-radius: 0;
+}
+
+.add-song .add-song-text {
+  font-weight: 600;
+  font-size: 1rem;
+}

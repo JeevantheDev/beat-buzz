@@ -11,8 +11,8 @@ import {
   homeOutline,
   radio,
   radioOutline,
-  layers,
-  layersOutline,
+  playCircle,
+  playCircleOutline,
 } from "ionicons/icons";
 import React, { useState } from "react";
 import { Route, Redirect } from "react-router";
@@ -22,20 +22,19 @@ import { Music } from "../music/Music";
 
 const BottomTabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("home");
+
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Route exact path="/home">
+        <Redirect exact path="/tab" to="/tab/home" />
+        <Route exact path="/tab/home">
           <Home />
         </Route>
-        <Route exact path="/library">
+        <Route exact path="/tab/library">
           <Library />
         </Route>
-        <Route path="/music">
+        <Route exact path="/tab/music">
           <Music />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
       <IonTabBar
@@ -45,10 +44,10 @@ const BottomTabs: React.FC = () => {
         <IonTabButton
           style={{
             "--color-selected": "var(--ion-color-light)",
-            "--color": "var(--ion-color-light-shade)",
+            "--color": "var(--ion-color-medium)",
           }}
           tab="home"
-          href="/home"
+          href="/tab/home"
         >
           <IonIcon
             aria-hidden="true"
@@ -59,28 +58,28 @@ const BottomTabs: React.FC = () => {
         <IonTabButton
           style={{
             "--color-selected": "var(--ion-color-light)",
-            "--color": "var(--ion-color-light-shade)",
+            "--color": "var(--ion-color-medium)",
           }}
           tab="music"
-          href="/music"
+          href="/tab/music"
         >
           <IonIcon
             aria-hidden="true"
-            icon={"music" === activeTab ? radio : radioOutline}
+            icon={"music" === activeTab ? playCircle : playCircleOutline}
           />
           <IonLabel>Music</IonLabel>
         </IonTabButton>
         <IonTabButton
           style={{
             "--color-selected": "var(--ion-color-light)",
-            "--color": "var(--ion-color-light-shade)",
+            "--color": "var(--ion-color-medium)",
           }}
           tab="library"
-          href="/library"
+          href="/tab/library"
         >
           <IonIcon
             aria-hidden="true"
-            icon={"library" === activeTab ? layers : layersOutline}
+            icon={"library" === activeTab ? radio : radioOutline}
           />
           <IonLabel>Library</IonLabel>
         </IonTabButton>

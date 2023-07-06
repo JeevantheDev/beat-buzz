@@ -1,0 +1,8 @@
+.subcontent {
+  border-radius: 20px 20px 0 0;
+  flex: 1;
+}
+
+.subcontent.primary {
+  background: var(--ion-color-primary);
+}

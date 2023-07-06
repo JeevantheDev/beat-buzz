@@ -1,0 +1,43 @@
+.songs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+}
+
+.songs-container .songs-header {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--ion-color-light);
+}
+
+.songs-container .songs-header .songs-header-btns {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.songs-header-btns ion-button.left-btn ion-icon {
+  width: 60px;
+  height: 25px;
+}
+.songs-header-btns ion-button.play-btn,
+.songs-header-btns ion-button.play-btn ion-icon {
+  width: 120px;
+  height: 80px;
+}
+
+.songs-header-btns ion-button.right-btn ion-icon {
+  width: 60px;
+  height: 25px;
+}
+
+.songs-header-btns ion-button.right-btn,
+.songs-header-btns ion-button.left-btn {
+  background-color: var(--ion-color-primary);
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+}

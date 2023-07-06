@@ -1,0 +1,57 @@
+.song-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.song-form .song-form-item {
+  position: relative;
+  background-color: var(--ion-color-primary);
+  border: 1px dashed var(--ion-color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  flex-grow: 2;
+}
+
+.song-form .song-form-item ion-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* .song-form .song-form-item ion-thumbnail img {
+  height: 100%;
+  width: 100%;
+} */
+
+.song-form .song-form-item:nth-child(1) {
+  height: 200;
+}
+.song-form .song-form-thumbnail {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-grow: 2;
+}
+
+.input-song {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-light);
+  --placeholder-color: var(--ion-color-light-shade);
+  --placeholder-opacity: 0.8;
+
+  /* --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px; */
+}
+
+ion-input.input-song .helper-text {
+  color: var(--ion-color-light) !important;
+}

@@ -1,0 +1,35 @@
+.playlist {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.playlist ion-thumbnail {
+  flex-grow: 3;
+}
+
+.playlist .playlist-text-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playlist .playlist-text-container .playlist-text {
+  max-width: 80%;
+  color: var(--ion-color-light);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.playlist .playlist-text-container label {
+  font-weight: 600;
+  font-size: 1rem;
+  max-width: 100%;
+}
+.playlist .playlist-text-container span {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
