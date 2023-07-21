@@ -26,7 +26,7 @@ const MixedAllSongs: React.FC = () => {
             songs={songState.getSongs}
             showRightBtn={false}
             onClickPlay={(...args: SongsState[]) => {
-              songState.setSongsByPlayer(Array.from(songState.getSongs));
+              songState.setSongsByPlayer(songState.getSongs as Songs[]);
               history.push('/playSong', {
                 ...args[0],
               });
