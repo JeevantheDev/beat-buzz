@@ -6,8 +6,10 @@
   cursor: pointer;
 }
 
-.playlist ion-thumbnail {
-  flex-grow: 3;
+.playlist ion-thumbnail,
+.playlist ion-button.add-song-btn {
+  width: 100% !important;
+  flex-grow: 3 !important;
 }
 
 .playlist .playlist-text-container {
@@ -17,7 +19,7 @@
 }
 
 .playlist .playlist-text-container .playlist-text {
-  max-width: 80%;
+  min-width: 0;
   color: var(--ion-color-light);
   display: flex;
   flex-direction: column;
@@ -27,7 +29,6 @@
 .playlist .playlist-text-container label {
   font-weight: 600;
   font-size: 1rem;
-  max-width: 100%;
 }
 .playlist .playlist-text-container span {
   font-weight: 400;

@@ -1,0 +1,50 @@
+{
+    "success": true,
+    "data": {
+        "audio": {
+            "url": "https://rr2---sn-gwpa-ccp6.googlevideo.com/videoplayback?expire=1688828199&ei=xySpZJrBLq2f1d8Ps-286AY&ip=2405%3A201%3Aa005%3A22ff%3A55d5%3A92d0%3Aadc1%3Abd3d&id=o-ANlnlU2U7AFLBH4DlBM61mQ8bil_cVEKjWl13vq7v2Ga&itag=140&source=youtube&requiressl=yes&mh=eN&mm=31%2C29&mn=sn-gwpa-ccp6%2Csn-qxaeenlz&ms=au%2Crdu&mv=m&mvi=2&pl=46&initcwndbps=296250&bui=AYlvQAstfvtamhgflruMF9aGbhpP3eslX6iPsrt7hrBuwAt8JiTZnrPGIdposo7r_bEh6XIaYUSy4wmMNKKVo-RwbM36VL5v&spc=Ul2Sq6w0TZhGIa5Saxb96vaRcghs-Thp47YIGW74fw&vprv=1&svpuc=1&mime=audio%2Fmp4&ns=1YtWr-RImX1b2x15E0mXKzcO&gir=yes&clen=4290651&dur=265.055&lmt=1651091812081250&mt=1688806128&fvip=2&keepalive=yes&fexp=24007246%2C24362685%2C51000024&beids=24350018&c=WEB&txp=4532434&n=chWqpnuSrl-tqMbE&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&sig=AOq0QJ8wRAIgV61us9J66wlmy4GE6nD3rl2DBRUVfacdRwYySIOm6I8CIEbEvY_f11wP-x__HTJYeVDdHTRmOQbDkcRtqjscz8Na&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgLeASqIi-BcS3CGDUJyLrA8Sq9Pug5xmpgUIurq8poUcCIBFkcEjb5Oah_PIf8TYnwhgQaCyKdfZ2rLM0mUmpEf6b&ratebypass=yes"
+        },
+        "videoTitle": "Butterfly x Excuses Mashup | Ab Ambient Mashup | AP Dhillon | Jass Manak | Gurinder Gill",
+        "videoURL": "https://www.youtube.com/watch?v=yw09YH8W0MM",
+        "keywords": [
+            "ab ambients",
+            "ab ambients chillout mashup",
+            "chillout mashup",
+            "ab ambients mashup",
+            "ab ambients chillout",
+            "excuses",
+            "ap dhillon",
+            "ap dhillon live",
+            "ap dhillon songs",
+            "whatsap status",
+            "ap dhillon excuses",
+            "excuses remix",
+            "ap dhillon latest song",
+            "excuses lofi",
+            "excuses slowed reverb",
+            "reels trending ap dhillon",
+            "kehndi hundi si chan tak rah bana de",
+            "excuses x butterfly mashup",
+            "jass manak song",
+            "jass manak mashup",
+            "excuses mashup",
+            "excuses song mashup",
+            "ap dhillon mashup",
+            "#2022"
+        ],
+        "thumbnail": {
+            "url": "https://i.ytimg.com/vi_webp/yw09YH8W0MM/maxresdefault.webp",
+            "width": 1920,
+            "height": 1080
+        },
+        "category": "Music",
+        "videoChannelId": "UC1gXVWRuNSskOIvCLdx2MeQ",
+        "videoChannel": "AB AMBIENTS",
+        "videoChannelThumbnail": {
+            "url": "https://yt3.ggpht.com/LLx9KJfP6ciUS7P-lxocwTPDEFBS9A3VJpjKyU8_PZCf3sWIrmW5kqY2gJckLwYeOCAvtgA7=s176-c-k-c0x00ffffff-no-nd-rj",
+            "width": 176,
+            "height": 176
+        }
+    },
+    "message": "Song info fetched successfully."
+}

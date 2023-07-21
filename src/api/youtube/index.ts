@@ -1,10 +1,10 @@
-import { getAPIUrl } from "../../utils/getAPIUrl";
+import { getAPIUrl } from '../../utils/getAPIUrl';
 
-const BASE_URL = `${getAPIUrl("youtube")}`;
+const BASE_URL = `${getAPIUrl('youtube')}`;
 
 export const Youtube = {
   fetchSongInfo: (videoId: string): APIRequest => ({
     url: `${BASE_URL}/getVideoInfo/${videoId}`,
-    method: "GET",
+    method: 'GET',
   }),
 };

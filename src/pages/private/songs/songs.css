@@ -23,8 +23,9 @@
   width: 60px;
   height: 25px;
 }
-.songs-header-btns ion-button.play-btn,
-.songs-header-btns ion-button.play-btn ion-icon {
+
+ion-button.play-btn,
+ion-button.play-btn ion-icon {
   width: 120px;
   height: 80px;
 }

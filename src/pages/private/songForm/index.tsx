@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from 'react';
 
-import { YoutubeVideoPlayer } from "@awesome-cordova-plugins/youtube-video-player";
+// import { YoutubeVideoPlayer } from "@awesome-cordova-plugins/youtube-video-player";
 
 import {
   IonPage,
@@ -9,40 +9,46 @@ import {
   IonInput,
   IonButton,
   IonThumbnail,
-} from "@ionic/react";
-import { Form, FormItem, Header } from "../../../components";
-import { useLocation } from "react-router";
-import { image, logoYoutube } from "ionicons/icons";
-import { useSongServices } from "../../../stores";
+} from '@ionic/react';
+import { Form, FormItem, Header } from '../../../components';
+import { useHistory, useLocation } from 'react-router';
+import { image, logoYoutube } from 'ionicons/icons';
+import { useFetchSongs, useYoutubeServices } from '../../../stores';
 
-import "./songForm.css";
+import './songForm.css';
 
 export const SongForm: React.FC = () => {
-  const songServiceState = useSongServices();
+  const history = useHistory();
+  const songServiceState = useFetchSongs();
+  const youtubeServiceState = useYoutubeServices();
 
-  const { fetchSongInfo } = songServiceState;
+  const { songFormAction } = songServiceState;
+  const { fetchSongInfo, setSongInfo } = youtubeServiceState;
 
-  const { getSongInfo } = songServiceState;
+  const { getSongInfo } = youtubeServiceState;
 
   const location = useLocation();
 
-  const { state } = location as { state: { type?: "add" | "edit" } };
+  const { state } = location as {
+    state: { type?: 'add' | 'edit'; id?: string; title?: string };
+  };
 
+  const [isFormError, setIsFormError] = useState<boolean>(false);
   const [event, updateEvent] = useReducer(
     (prev: SongFormState, next: Partial<SongFormState>) => {
       return { ...prev, ...next };
     },
     {
-      id: "yw09YH8W0MM",
-      audio: getSongInfo?.audio?.url || "",
-      keywords: Array.from(getSongInfo?.keywords || []),
-      category: getSongInfo?.category || "",
-      videoTitle: getSongInfo?.videoTitle || "",
-      videoURL: getSongInfo?.videoURL || "",
-      thumbnail: getSongInfo?.thumbnail?.url || "",
-      videoChannelId: getSongInfo?.videoChannelId || "",
-      videoChannel: getSongInfo?.videoChannel || "",
-      videoChannelThumbnail: getSongInfo?.videoChannelThumbnail?.url || "",
+      id: state?.id || '',
+      audio: '',
+      keywords: [],
+      category: '',
+      videoTitle: state?.title || '',
+      videoURL: '',
+      thumbnail: '',
+      videoChannelId: '',
+      videoChannel: '',
+      videoChannelThumbnail: '',
     }
   );
 
@@ -50,27 +56,64 @@ export const SongForm: React.FC = () => {
     if (event.id) {
       fetchSongInfo(event.id);
     }
+
+    return () => {
+      setSongInfo(null);
+    };
   }, [event.id]);
 
-  const handleClick = (event: React.SyntheticEvent) => {
-    event.stopPropagation();
-    updateEvent({
-      audio: getSongInfo?.audio?.url || "",
+  const handleClick = (e: React.SyntheticEvent) => {
+    e.stopPropagation();
+
+    if (isFormError) {
+      return;
+    }
+
+    const payloadObj = {
+      id: event.id,
+      audio: getSongInfo?.audio?.url || '',
       keywords: Array.from(getSongInfo?.keywords || []),
-      category: getSongInfo?.category || "",
-      videoTitle: getSongInfo?.videoTitle || "",
-      videoURL: getSongInfo?.videoURL || "",
-      thumbnail: getSongInfo?.thumbnail?.url || "",
-      videoChannelId: getSongInfo?.videoChannelId || "",
-      videoChannel: getSongInfo?.videoChannel || "",
-      videoChannelThumbnail: getSongInfo?.videoChannelThumbnail?.url || "",
+      category: getSongInfo?.category || '',
+      videoTitle: event?.videoTitle || getSongInfo?.videoTitle || '',
+      videoURL: getSongInfo?.videoURL || '',
+      thumbnail: getSongInfo?.thumbnail?.url || '',
+      videoChannelId: getSongInfo?.videoChannelId || '',
+      videoChannel: getSongInfo?.videoChannel || '',
+      videoChannelThumbnail: getSongInfo?.videoChannelThumbnail?.url || '',
+    };
+
+    songFormAction(payloadObj, state?.type, () => {
+      history.goBack();
+      setSongInfo(null);
     });
   };
 
-  console.log("event::", event);
+  const formError = () => {
+    if (
+      youtubeServiceState?.getIsLoading ||
+      !!youtubeServiceState?.getError ||
+      getSongInfo?.category?.toLowerCase() !== 'music'
+    ) {
+      return true;
+    }
+
+    if (songServiceState?.getSongLoading || songServiceState?.getSongError) {
+      return true;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
+    if (formError()) {
+      setIsFormError(true);
+    } else {
+      setIsFormError(false);
+    }
+  }, [formError()]);
 
   const playVideo = (videoId: string) => {
-    YoutubeVideoPlayer.openVideo(videoId);
+    // YoutubeVideoPlayer.openVideo(videoId);
   };
 
   const renderDefaultIcon = (renderIcon: string) => (
@@ -79,19 +122,19 @@ export const SongForm: React.FC = () => {
 
   const renderThumbnail = (src: string, alt?: string) => (
     <IonThumbnail>
-      <img src={src} alt={alt || "logo"} />
+      <img src={src} alt={alt || 'logo'} />
     </IonThumbnail>
   );
 
   return (
     <IonPage>
       <Header
-        title={state?.type === "add" ? "Add Song" : "Edit Song"}
+        title={state?.type === 'add' ? 'Add Song' : 'Edit Song'}
         showBack
       />
       <IonContent fullscreen className="ion-padding">
         <Form className="song-form">
-          <FormItem className="song-form-item">
+          <FormItem className="song-form-item song-youtube">
             {!getSongInfo?.videoURL ? (
               renderDefaultIcon(logoYoutube)
             ) : (
@@ -143,14 +186,19 @@ export const SongForm: React.FC = () => {
               label="Video Id"
               fill="outline"
               value={event.id}
-              onIonInput={(event) =>
-                updateEvent({ id: event.target.value?.toString() })
-              }
+              onIonInput={(event) => {
+                updateEvent({ id: event.target.value?.toString() });
+                setIsFormError(false);
+              }}
               labelPlacement="floating"
               color="light"
               mode="md"
               className="input-song"
-              helperText="https://www.youtube.com/watch?v=<videoId>"
+              helperText={
+                youtubeServiceState?.getError ||
+                songServiceState?.getSongError ||
+                'https://www.youtube.com/watch?v=<videoId>'
+              }
             />
           </FormItem>
           <FormItem>
@@ -162,29 +210,32 @@ export const SongForm: React.FC = () => {
               color="light"
               mode="md"
               className={`input-song ${
-                getSongInfo?.category?.toLowerCase() !== "music"
-                  ? "ion-invalid"
-                  : "ion-valid"
+                getSongInfo?.category?.toLowerCase() !== 'music'
+                  ? 'ion-invalid'
+                  : 'ion-valid'
               }`}
               helperText={
                 getSongInfo?.category &&
-                getSongInfo?.category?.toLowerCase() !== "music"
+                getSongInfo?.category?.toLowerCase() !== 'music'
                   ? `${getSongInfo?.category} category is not allowed`
-                  : ""
+                  : ''
               }
-              disabled={songServiceState?.getIsLoading}
+              disabled={youtubeServiceState?.getIsLoading}
             />
           </FormItem>
           <FormItem>
             <IonInput
               label="Video Title"
               fill="outline"
-              value={getSongInfo?.videoTitle}
+              value={event?.videoTitle || getSongInfo?.videoTitle || ''}
+              onIonInput={(event) =>
+                updateEvent({ videoTitle: event.target.value?.toString() })
+              }
               labelPlacement="floating"
               color="light"
               mode="md"
               className="input-song"
-              disabled={songServiceState?.getIsLoading}
+              disabled={youtubeServiceState?.getIsLoading}
             />
           </FormItem>
           <FormItem>
@@ -196,22 +247,18 @@ export const SongForm: React.FC = () => {
               color="light"
               mode="md"
               className="input-song"
-              disabled={songServiceState?.getIsLoading}
+              disabled={youtubeServiceState?.getIsLoading}
             />
           </FormItem>
           <FormItem>
             <IonButton
-              disabled={
-                songServiceState?.getIsLoading ||
-                !!songServiceState?.getError ||
-                getSongInfo?.category?.toLowerCase() !== "music"
-              }
+              disabled={isFormError}
               color="primary"
               expand="block"
               mode="ios"
               onClick={handleClick}
             >
-              {state?.type === "add" ? "Add Song" : "Edit Song"}
+              {state?.type === 'add' ? 'Add Song' : 'Edit Song'}
             </IonButton>
           </FormItem>
         </Form>

@@ -10,6 +10,7 @@ interface UserSignupPayload {
 }
 
 interface ResponseData {
+  user_id: number;
   username: string;
   email: string;
   token: string;

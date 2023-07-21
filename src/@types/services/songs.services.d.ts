@@ -10,3 +10,21 @@ interface SongFormState {
   videoChannel: string;
   videoChannelThumbnail: string;
 }
+
+interface SongDataResponse extends SongFormState {
+  user_id: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface SongServiceResponse {
+  success: boolean;
+  data: SongDataResponse;
+  message: string | null;
+}
+
+interface SongDeleteResponse {
+  success: boolean;
+  data: 0 | 1 | null;
+  message: string;
+}

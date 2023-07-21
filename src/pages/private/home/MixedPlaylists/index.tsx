@@ -1,9 +1,8 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Playlist, PlaylistLoading } from "../../../../components";
-import { ImmutableArray } from "@hookstate/core";
-import { useHistory } from "react-router";
-import { getPlaylistSongHeader } from "../../../../utils";
+import React from 'react';
+import { Playlist, PlaylistLoading, Slider } from '../../../../components';
+import { ImmutableArray } from '@hookstate/core';
+import { useHistory } from 'react-router';
+import { getPlaylistSongHeader } from '../../../../utils';
 
 interface IProps {
   loading?: boolean;
@@ -15,12 +14,14 @@ export const MixedPlaylists: React.FC<IProps> = ({ loading, playlists }) => {
 
   return (
     <React.Fragment>
-      <Swiper spaceBetween={180} slidesPerView={2.7} freeMode loop>
+      <Slider>
         {(loading ? Array.from(new Array(3)) : playlists).map(
           (playlist, idx) => (
-            <SwiperSlide key={idx}>
+            <React.Fragment key={idx}>
               {playlist ? (
                 <Playlist
+                  minWidth={'150px'}
+                  height={'auto'}
                   onClickPlaylist={(playlistId) => {
                     history.push({
                       pathname: `/songs/${playlistId}`,
@@ -28,14 +29,15 @@ export const MixedPlaylists: React.FC<IProps> = ({ loading, playlists }) => {
                     });
                   }}
                   {...playlist}
+                  showRightBtn={false}
                 />
               ) : (
                 <PlaylistLoading />
               )}
-            </SwiperSlide>
+            </React.Fragment>
           )
         )}
-      </Swiper>
+      </Slider>
     </React.Fragment>
   );
 };

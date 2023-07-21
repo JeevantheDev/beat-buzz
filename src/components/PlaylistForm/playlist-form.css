@@ -1,0 +1,30 @@
+ion-modal#playlist-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#playlist-modal h1 {
+  margin: 20px 20px 10px 20px;
+}
+
+ion-modal#playlist-modal ion-icon {
+  margin-right: 6px;
+
+  width: 48px;
+  height: 48px;
+
+  padding: 4px 0;
+
+  color: #aaaaaa;
+}
+
+ion-modal#playlist-modal .playlist-form-container {
+  margin-bottom: 10px;
+}
+
+ion-modal#playlist-modal .playlist-form-container ion-label h2 {
+  color: var(--ion-color-light) !important;
+}

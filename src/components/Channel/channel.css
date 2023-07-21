@@ -1,7 +1,27 @@
 .channel-thumbnail {
   display: flex;
   flex-direction: column;
-  width: 110px;
-  height: 110px;
+  min-width: 110px;
+  /* height: 110px; */
   cursor: pointer;
+  position: relative;
+}
+
+.channel-thumbnail .channel-thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.channel-thumbnail .channel-thumbnail-overlay label {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--ion-color-light);
 }

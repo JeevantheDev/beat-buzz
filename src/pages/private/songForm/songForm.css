@@ -3,7 +3,9 @@
   flex-direction: column;
   align-items: stretch;
   gap: 12px;
+  height: 100%;
 }
+
 .song-form .song-form-item {
   position: relative;
   background-color: var(--ion-color-primary);
@@ -30,14 +32,13 @@
   width: 100%;
 } */
 
-.song-form .song-form-item:nth-child(1) {
-  height: 200;
+.song-form .song-form-item.song-youtube {
+  height: 300px;
 }
 .song-form .song-form-thumbnail {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  flex-grow: 2;
 }
 
 .input-song {

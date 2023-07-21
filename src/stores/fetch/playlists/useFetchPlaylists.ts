@@ -1,5 +1,18 @@
-import { hookstate, useHookstate } from "@hookstate/core";
-import { Fetch, PerformRequest } from "../../../api";
+import { hookstate, useHookstate } from '@hookstate/core';
+import { Fetch, PerformRequest, PlaylistService } from '../../../api';
+import { AxiosError } from 'axios';
+
+type PlaylistServiceDataType = Pick<
+  PlaylistFormDataResponse,
+  {
+    [K in keyof PlaylistFormDataResponse &
+      keyof Playlists]: PlaylistFormDataResponse[K] extends Playlists[K]
+      ? Playlists[K] extends PlaylistFormDataResponse[K]
+        ? K
+        : never
+      : never;
+  }[keyof PlaylistFormDataResponse & keyof Playlists]
+>;
 
 interface PlaylistState {
   isPlaylistLoading: true | false;
@@ -11,13 +24,6 @@ interface PlaylistState {
 const initState: PlaylistState = hookstate({
   isPlaylistLoading: false,
   playlists: [],
-  // playlists: Array.from({ length: 8 }).map((_, idx) => ({
-  //   id: idx,
-  //   title: `Odia New ${idx + 1}`,
-  //   songs: [125],
-  //   thumbnail:
-  //     "https://i.ytimg.com/vi/jYDhitRYGU0/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLC2paCmtXemadCx-zEbaOtdIGP5IA",
-  // })),
   playlist: null,
   playlistError: null,
 });
@@ -25,8 +31,93 @@ const initState: PlaylistState = hookstate({
 export const useFetchPlaylists = () => {
   const state = useHookstate(initState);
 
+  const playlistFormAction = async (
+    data: PlaylistFormState,
+    type: 'add' | 'edit' = 'add',
+    historyCallback?: Function
+  ) => {
+    state.isPlaylistLoading.set(true);
+    state.playlistError.set('');
+
+    try {
+      const request =
+        type === 'add'
+          ? PlaylistService.createPlaylist(data)
+          : PlaylistService.updatePlaylist(data);
+
+      const responseCallback = PerformRequest(request);
+      const response = await responseCallback();
+
+      if (!response?.data || !response?.data?.success) {
+        state.playlistError.set(
+          response?.data?.message || 'Something went wrong!!!'
+        );
+      } else {
+        const { data } = response.data as PlaylistFormResponse;
+        const finalData: PlaylistServiceDataType = data;
+
+        let [...prevPlaylists] = state.playlists.get({ noproxy: true });
+        const foundIdx = prevPlaylists.findIndex(
+          (playlist) => playlist.id === finalData.id
+        );
+
+        if (foundIdx !== -1) {
+          prevPlaylists[foundIdx] = finalData;
+        } else {
+          prevPlaylists.push(finalData);
+        }
+
+        state.playlists.set(() => prevPlaylists);
+        historyCallback && historyCallback();
+      }
+      state.isPlaylistLoading.set(false);
+    } catch (error) {
+      state.isPlaylistLoading.set(false);
+      state.playlistError.set(
+        error instanceof AxiosError
+          ? error?.response?.data?.message
+          : 'Something went wrong!!!'
+      );
+    }
+  };
+
+  const deletePlaylists = async (playlistIds: number[]) => {
+    state.isPlaylistLoading.set(true);
+    try {
+      const request = PlaylistService.deletePlaylist(playlistIds);
+      const responseCallback = PerformRequest(request);
+      const response = await responseCallback();
+
+      if (!response?.data || !response?.data?.success) {
+        state.playlistError.set(
+          response?.data?.message || 'Something went wrong!!!'
+        );
+      } else {
+        const { data } = response?.data as PlaylistDeleteResponse;
+
+        if (data === 1) {
+          let [...prevPlaylists] = state.playlists.get({ noproxy: true });
+
+          prevPlaylists = prevPlaylists.filter(
+            (playlist) => !playlistIds.includes(playlist.id)
+          );
+          state.playlists.set(() => prevPlaylists);
+        }
+      }
+      state.isPlaylistLoading.set(false);
+    } catch (error) {
+      state.isPlaylistLoading.set(false);
+      state.playlistError.set(
+        error instanceof AxiosError
+          ? error?.response?.data?.message
+          : 'Something went wrong!!!'
+      );
+    }
+  };
+
   const fetchPlaylistsByUser = async () => {
     state.isPlaylistLoading.set(true);
+    state.playlists.set([]);
     try {
       const request = Fetch.fetchPlaylistsByUser();
       const resposeCallback = PerformRequest(request);
@@ -34,7 +125,7 @@ export const useFetchPlaylists = () => {
 
       if (!response.data || response?.data?.errors) {
         const error =
-          response?.data?.errors[0]?.message || "Something went wrong!!!";
+          response?.data?.errors[0]?.message || 'Something went wrong!!!';
         state.playlistError.set(error);
       } else {
         const { data } = response.data as PlaylistsByUserResponse;
@@ -45,7 +136,7 @@ export const useFetchPlaylists = () => {
     } catch (error) {
       state.isPlaylistLoading.set(false);
       state.playlistError.set(
-        error instanceof Error ? error.message : "Something went wrong!!!"
+        error instanceof Error ? error.message : 'Something went wrong!!!'
       );
     }
   };
@@ -71,5 +162,7 @@ export const useFetchPlaylists = () => {
   return {
     ...getter,
     fetchPlaylistsByUser,
+    playlistFormAction,
+    deletePlaylists,
   };
 };

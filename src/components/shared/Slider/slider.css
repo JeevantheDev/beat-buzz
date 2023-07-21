@@ -1,0 +1,10 @@
+.slider {
+  display: flex;
+  gap: 16px;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,7 @@
+ion-list.playlist-item-list {
+  margin: 16px 0;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  background: var(--ion-color-primary);
+}

@@ -1,23 +1,22 @@
-import { IonButton, IonContent, IonPage } from "@ionic/react";
-import { Header, HeaderRight, SubHeader } from "../../../components";
+import { IonButton, IonContent, IonPage } from '@ionic/react';
+import { Header, HeaderRight, SubHeader } from '../../../components';
 import {
   useFetchChannels,
   useFetchPlaylists,
   useFetchSongs,
-} from "../../../stores";
+} from '../../../stores';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { MixedChannels } from "./MIxedChannels";
-import { MixedPlaylists } from "./MixedPlaylists";
-import { AllSongs } from "../shared";
+import { MixedChannels } from './MIxedChannels';
+import { MixedPlaylists } from './MixedPlaylists';
+import { AllSongs } from '../shared';
 
-import "./home.css";
-import "swiper/css";
-import { useLocation } from "react-router";
+import './home.css';
+import { useHistory } from 'react-router';
 
 export const Home: React.FC = () => {
-  const location = useLocation();
+  const history = useHistory();
   const channelState = useFetchChannels();
   const playlistState = useFetchPlaylists();
   const songState = useFetchSongs();
@@ -34,7 +33,7 @@ export const Home: React.FC = () => {
 
   const moreButton = (
     redirectTo?: string,
-    routerDirection: "forward" | "back" | "root" | "none" = "forward"
+    routerDirection: 'forward' | 'back' | 'root' | 'none' = 'forward'
   ) => (
     <IonButton
       routerLink={redirectTo}
@@ -58,7 +57,7 @@ export const Home: React.FC = () => {
             subText="Channels"
             renderRight={() =>
               channelState?.getChannels?.length > 3
-                ? moreButton(location.pathname)
+                ? moreButton('/mixedAllChannels')
                 : null
             }
           />
@@ -73,13 +72,21 @@ export const Home: React.FC = () => {
             subText="Songs"
             renderRight={() =>
               songState.getSongs.length > 5
-                ? moreButton(location.pathname)
+                ? moreButton('/mixedAllSongs')
                 : null
             }
           />
           <AllSongs
             loading={songState.getSongLoading}
             songs={songState.getSongs.slice(0, 5)}
+            showRightBtn={false}
+            currentSong={songState.getCurrentSong}
+            onClickPlay={(...args: SongsState[]) => {
+              songState.setSongsByPlayer(Array.from(songState.getSongs));
+              history.push('/playSong', {
+                ...args[0],
+              });
+            }}
           />
         </div>
         <div className="all-playlists">
@@ -88,7 +95,7 @@ export const Home: React.FC = () => {
             subText="Playlists"
             renderRight={() =>
               playlistState?.getPlaylists?.length > 3
-                ? moreButton("/tab/library", "none")
+                ? moreButton('/tab/library', 'none')
                 : null
             }
           />

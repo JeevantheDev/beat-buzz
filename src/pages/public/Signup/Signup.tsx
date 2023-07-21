@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { IonPage, IonContent, IonImg, IonInput, IonButton } from "@ionic/react";
+import React, { useState } from 'react';
+import { IonPage, IonContent, IonImg, IonInput, IonButton } from '@ionic/react';
 import {
   Form,
   FormItem,
   Header,
   SubContent,
   SubHeader,
-} from "../../../components";
-import signupBGSVG from "../../../../resources/signup-bg.svg";
-import { useAuth } from "../../../stores";
+} from '../../../components';
+import signupBGSVG from '../../../../resources/signup-bg.svg';
+import { useAuth } from '../../../stores';
 
-import "./signup.css";
+import './signup.css';
 
 const Signup: React.FC = () => {
   const authState = useAuth();
@@ -18,9 +18,9 @@ const Signup: React.FC = () => {
   const { signupAction } = authState;
 
   const [formValue, setFormValue] = useState({
-    username: "Jeevan Jyoti Dash",
-    email: "dashjeevanjyoti@gmail.com",
-    password: "123456",
+    username: 'Jeevan Jyoti Dash',
+    email: 'dashjeevanjyoti@gmail.com',
+    password: '123456',
   });
 
   const handleSignup = (event: React.SyntheticEvent) => {
@@ -36,7 +36,7 @@ const Signup: React.FC = () => {
           <IonImg
             className="ion-margin-top"
             style={{
-              marginTop: "2rem",
+              marginTop: '2rem',
               flex: 0.09,
             }}
             src={signupBGSVG}
@@ -51,7 +51,7 @@ const Signup: React.FC = () => {
                   onIonChange={(event) =>
                     setFormValue((prev) => ({
                       ...prev,
-                      username: event.target.value?.toString() || "",
+                      username: event.target.value?.toString() || '',
                     }))
                   }
                   label="Fullname"
@@ -62,7 +62,7 @@ const Signup: React.FC = () => {
                   color="light"
                   mode="md"
                   style={{
-                    background: "var(--ion-color-secondary)",
+                    background: 'var(--ion-color-secondary)',
                   }}
                 />
               </FormItem>
@@ -72,7 +72,7 @@ const Signup: React.FC = () => {
                   onIonChange={(event) =>
                     setFormValue((prev) => ({
                       ...prev,
-                      email: event.target.value?.toString() || "",
+                      email: event.target.value?.toString() || '',
                     }))
                   }
                   label="Email"
@@ -83,7 +83,7 @@ const Signup: React.FC = () => {
                   color="light"
                   mode="md"
                   style={{
-                    background: "var(--ion-color-secondary)",
+                    background: 'var(--ion-color-secondary)',
                   }}
                 />
               </FormItem>
@@ -94,7 +94,7 @@ const Signup: React.FC = () => {
                   onIonChange={(event) =>
                     setFormValue((prev) => ({
                       ...prev,
-                      password: event.target.value?.toString() || "",
+                      password: event.target.value?.toString() || '',
                     }))
                   }
                   label="Password"
@@ -104,7 +104,7 @@ const Signup: React.FC = () => {
                   labelPlacement="stacked"
                   color="light"
                   mode="md"
-                  style={{ background: "var(--ion-color-secondary)" }}
+                  style={{ background: 'var(--ion-color-secondary)' }}
                 />
               </FormItem>
               <FormItem>
@@ -118,7 +118,7 @@ const Signup: React.FC = () => {
                     authState.getActionLoading
                   }
                 >
-                  {authState.getActionLoading ? "Signing up..." : "Signup"}
+                  {authState.getActionLoading ? 'Signing up...' : 'Signup'}
                 </IonButton>
               </FormItem>
             </Form>

@@ -1,13 +1,13 @@
-import { hookstate, useHookstate } from "@hookstate/core";
-import { PerformRequest, UserAuth } from "../../api";
-import { useHistory } from "react-router";
-import { localstored } from "@hookstate/localstored";
+import { hookstate, useHookstate } from '@hookstate/core';
+import { PerformRequest, UserAuth } from '../../api';
+import { useHistory } from 'react-router';
+import { localstored } from '@hookstate/localstored';
 
 interface AuthState {
   authLoading: true | false;
   actionLoading: true | false;
   isLoggedin: true | false;
-  currUserDetails: { email: string; username: string } | null;
+  currUserDetails: { email: string; username: string; user_id: number } | null;
   errorMessage: string | null;
 }
 
@@ -21,9 +21,9 @@ const initState: AuthState = {
 
 const authState = hookstate(initState);
 const tokenState = hookstate(
-  "",
+  '',
   localstored({
-    key: "userToken",
+    key: 'userToken',
   })
 );
 
@@ -36,9 +36,9 @@ export const useAuth = () => {
     state.currUserDetails.set(null);
     state.isLoggedin.set(false);
     state.errorMessage.set(null);
-    userTokenState.set("");
+    userTokenState.set('');
     localStorage.clear();
-    history.push("/splash");
+    history.push('/splash');
   };
 
   const validUserAction = async () => {
@@ -49,23 +49,29 @@ export const useAuth = () => {
 
       if (!response?.data || !response?.data?.success) {
         state.errorMessage.set(
-          response?.data?.message || "Something went wrong!!!"
+          response?.data?.message || 'Something went wrong!!!'
         );
-        userTokenState.set("");
+        userTokenState.set('');
         localStorage.clear();
       } else {
         const { data } = response.data as UserAuthResponse;
         state.isLoggedin.set(true);
         state.currUserDetails.set(
-          data ? { username: data?.username, email: data?.email } : null
+          data
+            ? {
+                username: data?.username,
+                email: data?.email,
+                user_id: data?.user_id,
+              }
+            : null
         );
-        history.push("/tab/home");
+        history.push('/tab/home');
       }
       state.authLoading.set(false);
     } catch (error) {
       state.authLoading.set(false);
       state.errorMessage.set(
-        error instanceof Error ? error.message : "Something went wrong!!!"
+        error instanceof Error ? error.message : 'Something went wrong!!!'
       );
     }
   };
@@ -79,22 +85,28 @@ export const useAuth = () => {
 
       if (!response?.data || !response?.data?.success) {
         state.errorMessage.set(
-          response?.data?.message || "Something went wrong!!!"
+          response?.data?.message || 'Something went wrong!!!'
         );
       } else {
         const { data } = response.data as UserAuthResponse;
         state.isLoggedin.set(true);
         state.currUserDetails.set(
-          data ? { username: data?.username, email: data?.email } : null
+          data
+            ? {
+                user_id: data?.user_id,
+                username: data?.username,
+                email: data?.email,
+              }
+            : null
         );
-        userTokenState.set(data?.token || "");
-        history.push("/tab/home");
+        userTokenState.set(data?.token || '');
+        history.push('/tab/home');
       }
       state.actionLoading.set(false);
     } catch (error) {
       state.actionLoading.set(false);
       state.errorMessage.set(
-        error instanceof Error ? error.message : "Something went wrong!!!"
+        error instanceof Error ? error.message : 'Something went wrong!!!'
       );
     }
   };
@@ -108,22 +120,28 @@ export const useAuth = () => {
 
       if (!response?.data || !response?.data?.success) {
         state.errorMessage.set(
-          response?.data?.message || "Something went wrong!!!"
+          response?.data?.message || 'Something went wrong!!!'
         );
       } else {
         const { data } = response.data as UserAuthResponse;
         state.isLoggedin.set(true);
         state.currUserDetails.set(
-          data ? { username: data?.username, email: data?.email } : null
+          data
+            ? {
+                user_id: data?.user_id,
+                username: data?.username,
+                email: data?.email,
+              }
+            : null
         );
-        userTokenState.set(data?.token || "");
-        history.push("/tab/home");
+        userTokenState.set(data?.token || '');
+        history.push('/tab/home');
       }
       state.actionLoading.set(false);
     } catch (error) {
       state.actionLoading.set(false);
       state.errorMessage.set(
-        error instanceof Error ? error.message : "Something went wrong!!!"
+        error instanceof Error ? error.message : 'Something went wrong!!!'
       );
     }
   };
@@ -137,7 +155,7 @@ export const useAuth = () => {
 
       if (!response?.data || !response?.data?.success) {
         state.errorMessage.set(
-          response?.data?.message || "Something went wrong!!!"
+          response?.data?.message || 'Something went wrong!!!'
         );
       } else {
         logoutAction();
@@ -146,7 +164,7 @@ export const useAuth = () => {
     } catch (error) {
       state.actionLoading.set(false);
       state.errorMessage.set(
-        error instanceof Error ? error.message : "Something went wrong!!!"
+        error instanceof Error ? error.message : 'Something went wrong!!!'
       );
     }
   };

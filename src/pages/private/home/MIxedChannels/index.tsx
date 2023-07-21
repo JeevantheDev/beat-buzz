@@ -1,39 +1,47 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Channel, ChannelLoading } from "../../../../components";
-import { ImmutableArray } from "@hookstate/core";
-import { useHistory } from "react-router";
-import { getChannelSongHeader } from "../../../../utils";
+import React from 'react';
+import { Channel, ChannelLoading, Slider } from '../../../../components';
+import { ImmutableArray } from '@hookstate/core';
+import { useHistory } from 'react-router';
+import { getChannelSongHeader } from '../../../../utils';
 
 interface IProps {
   loading?: boolean;
   channels: ImmutableArray<Channels>;
+  xScroll?: boolean;
 }
 
-export const MixedChannels: React.FC<IProps> = ({ loading, channels }) => {
+export const MixedChannels: React.FC<IProps> = ({
+  loading,
+  channels,
+  xScroll = true,
+}) => {
   const history = useHistory();
+
+  const renderChannels = (): JSX.Element => (
+    <React.Fragment>
+      {(loading ? Array.from(new Array(3)) : channels).map((channel, idx) => (
+        <React.Fragment key={idx}>
+          {channel ? (
+            <Channel
+              {...channel}
+              onClickThumbnail={(channelID) =>
+                history.push({
+                  pathname: `/songs/${channelID}`,
+                  state: getChannelSongHeader(channel),
+                })
+              }
+            />
+          ) : (
+            <ChannelLoading />
+          )}
+        </React.Fragment>
+      ))}
+    </React.Fragment>
+  );
 
   return (
     <React.Fragment>
-      <Swiper spaceBetween={20} slidesPerView={2.8} freeMode loop>
-        {(loading ? Array.from(new Array(3)) : channels).map((channel, idx) => (
-          <SwiperSlide key={idx}>
-            {channel ? (
-              <Channel
-                {...channel}
-                onClickThumbnail={(channelID) =>
-                  history.push({
-                    pathname: `/songs/${channelID}`,
-                    state: getChannelSongHeader(channel),
-                  })
-                }
-              />
-            ) : (
-              <ChannelLoading />
-            )}
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {xScroll ? <Slider>{renderChannels()}</Slider> : renderChannels()}
     </React.Fragment>
   );
 };
