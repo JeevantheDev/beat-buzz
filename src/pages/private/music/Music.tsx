@@ -36,7 +36,9 @@ export const Music: React.FC = () => {
             ) => playlistFormAction(state, type, callback)}
             onClickDelete={deleteSongs}
             onClickPlay={(...args: SongsState[]) => {
-              songState.setSongsByPlayer(songState.getSongsByUser as Songs[]);
+              songState.setSongsByPlayer(
+                Array.from(songState.getSongsByUser) as Songs[]
+              );
               history.push('/playSong', {
                 ...args[0],
               });

@@ -82,7 +82,9 @@ export const Home: React.FC = () => {
             showRightBtn={false}
             currentSong={songState.getCurrentSong}
             onClickPlay={(...args: SongsState[]) => {
-              songState.setSongsByPlayer(songState.getSongs as Songs[]);
+              songState.setSongsByPlayer(
+                Array.from(songState.getSongs) as Songs[]
+              );
               history.push('/playSong', {
                 ...args[0],
               });
