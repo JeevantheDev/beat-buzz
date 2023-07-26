@@ -1,5 +1,5 @@
-import { hookstate, useHookstate } from "@hookstate/core";
-import { Fetch, PerformRequest } from "../../../api";
+import { hookstate, useHookstate } from '@hookstate/core';
+import { Fetch, PerformRequest } from '../../../api';
 
 interface ChannelState {
   isChannelLoading: true | false;
@@ -33,7 +33,7 @@ export const useFetchChannels = () => {
 
       if (!response.data || response?.data?.errors) {
         const error =
-          response?.data?.errors[0]?.message || "Something went wrong!!!";
+          response?.data?.errors[0]?.message || 'Something went wrong!!!';
         state.channelError.set(error);
       } else {
         const { data } = response.data as FetchChannelResponse;
@@ -44,7 +44,7 @@ export const useFetchChannels = () => {
     } catch (error) {
       state.isChannelLoading.set(false);
       state.channelError.set(
-        error instanceof Error ? error.message : "Something went wrong!!!"
+        error instanceof Error ? error.message : 'Something went wrong!!!'
       );
     }
   };

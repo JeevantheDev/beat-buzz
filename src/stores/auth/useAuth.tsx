@@ -51,8 +51,8 @@ export const useAuth = () => {
         state.errorMessage.set(
           response?.data?.message || 'Something went wrong!!!'
         );
-        userTokenState.set('');
-        localStorage.clear();
+        logoutAction();
+        console.log('here');
       } else {
         const { data } = response.data as UserAuthResponse;
         state.isLoggedin.set(true);
