@@ -58,7 +58,7 @@ export const AllSongs: React.FC<IProps> = ({
           </div>
         )}
       </div>
-      {(loading ? Array.from(new Array(3)) : songs).map((song, idx) => (
+      {(loading ? Array.from(new Array(6)) : songs).map((song, idx) => (
         <React.Fragment key={idx}>
           <div className="all-songs-container-item">
             {song ? (

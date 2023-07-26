@@ -19,7 +19,7 @@ export const MixedChannels: React.FC<IProps> = ({
 
   const renderChannels = (): JSX.Element => (
     <React.Fragment>
-      {(loading ? Array.from(new Array(3)) : channels).map((channel, idx) => (
+      {(loading ? Array.from(new Array(6)) : channels).map((channel, idx) => (
         <React.Fragment key={idx}>
           {channel ? (
             <Channel

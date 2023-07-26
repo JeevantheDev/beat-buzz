@@ -2,10 +2,10 @@ import { IonContent, IonPage } from '@ionic/react';
 import { Header, HeaderRight, SubHeader } from '../../../components';
 import { useFetchPlaylists, useFetchSongs } from '../../../stores';
 import { useEffect } from 'react';
-
-import './music.css';
 import { AllSongs } from '../shared';
 import { useHistory } from 'react-router';
+
+import './music.css';
 
 export const Music: React.FC = () => {
   const songState = useFetchSongs();
