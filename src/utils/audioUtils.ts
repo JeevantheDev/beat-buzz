@@ -11,7 +11,7 @@ export const getDuration = (src: string, cb: Function) => {
 };
 
 export const getAudioSrc = (songId: string) => {
-  const AUDIO_BASE_URL = `${getAPIUrl('youtube')}`;
+  const AUDIO_BASE_URL = 'https://beatbuzz-youtube-servicesrc.onrender.com';
   return `${AUDIO_BASE_URL}/stream/${songId}`;
 };
 
