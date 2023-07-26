@@ -1,6 +1,6 @@
 const AUTH_API = {
   DEV: 'http://localhost:7998/.netlify/functions/server',
-  PROD: 'https://beatbuzz-user-service.netlify.app/.netlify/functions/server',
+  PROD: 'https://beatbuzz-api-service.netlify.app/.netlify/functions/server/api/v1/beatbuzz/auth',
 };
 
 const FETCH_API = {
@@ -10,12 +10,12 @@ const FETCH_API = {
 
 const SONG_SERVICE_API = {
   DEV: 'http://localhost:7997/.netlify/functions/server',
-  PROD: 'https://beatbuzz-song-service.netlify.app/.netlify/functions/server',
+  PROD: 'https://beatbuzz-api-service.netlify.app/.netlify/functions/server/api/v1/beatbuzz/song',
 };
 
 const YOUTUBE_API = {
   DEV: 'http://localhost:7999',
-  PROD: 'https://beatbuzz-youtube-servicesrc.onrender.com',
+  PROD: 'https://beatbuzz-api-service.netlify.app/.netlify/functions/server/api/v1/beatbuzz/youtube',
 };
 
 export const getAPIUrl = (
