@@ -112,9 +112,7 @@ export const SongForm: React.FC = () => {
     }
   }, [formError()]);
 
-  const playVideo = (videoId: string) => {
-    // YoutubeVideoPlayer.openVideo(videoId);
-  };
+  const playVideo = (videoId: string) => {};
 
   const renderDefaultIcon = (renderIcon: string) => (
     <IonIcon icon={renderIcon} size="large" color="light" />

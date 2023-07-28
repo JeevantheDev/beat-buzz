@@ -91,21 +91,23 @@ export const Home: React.FC = () => {
             }}
           />
         </div>
-        <div className="all-playlists">
-          <SubHeader
-            text="Mixed"
-            subText="Playlists"
-            renderRight={() =>
-              playlistState?.getPlaylists?.length > 3
-                ? moreButton('/tab/library', 'none')
-                : null
-            }
-          />
-          <MixedPlaylists
-            loading={playlistState?.getPlaylistLoading}
-            playlists={playlistState?.getPlaylists}
-          />
-        </div>
+        {playlistState?.getPlaylists.length ? (
+          <div className="all-playlists">
+            <SubHeader
+              text="Mixed"
+              subText="Playlists"
+              renderRight={() =>
+                playlistState?.getPlaylists?.length > 3
+                  ? moreButton('/tab/library', 'none')
+                  : null
+              }
+            />
+            <MixedPlaylists
+              loading={playlistState?.getPlaylistLoading}
+              playlists={playlistState?.getPlaylists}
+            />
+          </div>
+        ) : null}
       </IonContent>
     </IonPage>
   );

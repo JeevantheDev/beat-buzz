@@ -10,7 +10,6 @@ interface IProps extends Playlists {
   onlyThumbnail?: false | true;
   onUpdateItem?: Function;
   onClickPlaylist?: (playlistId: number) => void;
-  onPlayPlaylist?: (songId: string | null) => void;
   minWidth?: 'auto' | string | number;
   height?: 'auto' | string | number;
   validUser?: boolean;
@@ -23,7 +22,6 @@ export const Playlist: React.FC<IProps> = ({
   title,
   songs,
   onClickPlaylist,
-  onPlayPlaylist,
   onlyThumbnail = false,
   minWidth = 'auto',
   height = 'auto',

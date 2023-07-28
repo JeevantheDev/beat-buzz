@@ -30,3 +30,8 @@ interface SongsByUserResponse {
     getSongByUser: Songs[];
   };
 }
+interface SongsBySearchResponse {
+  data: {
+    searchSongs: Songs[];
+  };
+}

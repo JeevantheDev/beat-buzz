@@ -65,7 +65,7 @@ export const AllSongs: React.FC<IProps> = ({
               <Song
                 validUser={
                   userModalAction
-                    ? authState?.getCurrUserDetails?.user_id
+                    ? authState?.getCurrUserDetails?.user_id === song?.user_id
                     : false
                 }
                 onClickDelete={onClickDelete}

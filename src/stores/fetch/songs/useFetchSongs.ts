@@ -21,6 +21,7 @@ interface SongsState {
   songsByUser: Songs[];
   songsById: Songs[];
   songsByPlayer: Songs[];
+  songsBySearch: Songs[];
   song: Songs | null;
   currentSong: CurrentSong | null;
   songError: string | null;
@@ -33,6 +34,7 @@ const initState = hookstate(
     songsById: [],
     songsByUser: [],
     songsByPlayer: [],
+    songsBySearch: [],
     song: null,
     currentSong: null,
     songError: null,
@@ -173,6 +175,31 @@ export const useFetchSongs = () => {
       );
     }
   };
+  const fetchSongsBySearch = async (searchQuery: string) => {
+    state.isSongLoading.set(true);
+    state.songsBySearch.set([]);
+    try {
+      const request = Fetch.fetchSongsBySearch(searchQuery);
+      const responseCallback = PerformRequest(request);
+      const response = await responseCallback();
+
+      if (!response.data || response?.data?.errors) {
+        const error =
+          response?.data?.errors[0]?.message || 'Something went wrong!!!';
+        state.songError.set(error);
+      } else {
+        const { data } = response.data as SongsBySearchResponse;
+
+        state.songsBySearch.set(data?.searchSongs || []);
+      }
+      state.isSongLoading.set(false);
+    } catch (error) {
+      state.isSongLoading.set(false);
+      state.songError.set(
+        error instanceof Error ? error.message : 'Something went wrong!!!'
+      );
+    }
+  };
 
   const fetchSongsByID = async (
     id: string | number,
@@ -222,6 +249,9 @@ export const useFetchSongs = () => {
   const setSongsByPlayer = (songs: Songs[]) => {
     state.songsByPlayer.set(songs);
   };
+  const setSongsBySearch = (songs: Songs[]) => {
+    state.songsBySearch.set(songs);
+  };
 
   const setCurrentSong = (song: CurrentSong) => {
     state.currentSong.set(song);
@@ -237,6 +267,9 @@ export const useFetchSongs = () => {
     },
     get getSongsByUser() {
       return state.songsByUser.get();
+    },
+    get getSongsBySearch() {
+      return state.songsBySearch.get();
     },
     get getSongsByID() {
       return state.songsById.get();
@@ -263,6 +296,7 @@ export const useFetchSongs = () => {
     setSongsById,
     setSongsByPlayer,
     setCurrentSong,
+    setSongsBySearch,
   };
 
   return {
@@ -272,6 +306,7 @@ export const useFetchSongs = () => {
     deleteSongs,
     fetchSongs,
     fetchSongsByUser,
+    fetchSongsBySearch,
     fetchSongsByID,
     removeSongsById,
   };

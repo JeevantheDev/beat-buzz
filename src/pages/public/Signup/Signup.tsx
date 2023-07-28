@@ -18,9 +18,9 @@ const Signup: React.FC = () => {
   const { signupAction } = authState;
 
   const [formValue, setFormValue] = useState({
-    username: 'Jeevan Jyoti Dash',
-    email: 'dashjeevanjyoti@gmail.com',
-    password: '123456',
+    username: '',
+    email: '',
+    password: '',
   });
 
   const handleSignup = (event: React.SyntheticEvent) => {

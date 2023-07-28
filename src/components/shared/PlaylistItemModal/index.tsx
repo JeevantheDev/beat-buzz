@@ -39,6 +39,13 @@ export const PlaylistItemModal: React.FC<IProps> = ({
     >
       <IonContent color="primary">
         <IonList mode="ios" lines="none" className="playlist-item-list">
+          {!items.length && (
+            <IonItem color="primary" button lines="none" detail={false}>
+              <IonLabel>
+                <p>No playlists found...</p>
+              </IonLabel>
+            </IonItem>
+          )}
           {items.map((item: Playlists, idx: number) => (
             <IonItem
               key={idx}

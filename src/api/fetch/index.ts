@@ -32,6 +32,25 @@ export const Fetch = {
       }`,
     },
   }),
+  fetchSongsBySearch: (searchQuery: string): APIRequest => ({
+    url: BASE_URL,
+    method: 'POST',
+    payload: {
+      query: `query SearchSongs($searchQuery: String!) {
+        searchSongs(searchQuery: $searchQuery) {
+            id,
+            user_id,
+            keywords,
+            audio,
+            videoTitle,
+            thumbnail
+          }
+        }`,
+      variables: {
+        searchQuery,
+      },
+    },
+  }),
   fetchSongsByUser: (): APIRequest => ({
     url: BASE_URL,
     method: 'POST',
