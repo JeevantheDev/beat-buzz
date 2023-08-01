@@ -5,3 +5,4 @@ export * from './SubContent';
 export * from './ItemModal';
 export * from './PlaylistItemModal';
 export * from './Slider';
+export * from './Alert';
