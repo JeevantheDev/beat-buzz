@@ -19,7 +19,7 @@ export const Channel: React.FC<IProps> = ({
       onClick={() => onClickThumbnail && onClickThumbnail(videoChannelId)}
     >
       <IonThumbnail style={{ '--size': '100%', '--border-radius': '50%' }}>
-        <img src={videoChannelThumbnail} alt={videoChannel} />
+        <img loading="lazy" src={videoChannelThumbnail} alt={videoChannel} />
       </IonThumbnail>
       <div className="channel-thumbnail-overlay">
         <label className="ellipse">{videoChannel}</label>

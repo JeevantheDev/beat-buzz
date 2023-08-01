@@ -153,7 +153,7 @@ export const Song: React.FC<IProps> = ({
         }}
         className="song-thumbnail"
       >
-        <img src={thumbnail} alt={videoTitle} />
+        <img loading="lazy" src={thumbnail} alt={videoTitle} />
       </IonThumbnail>
       <div className="song-text">
         <label className="ellipse">{videoTitle}</label>

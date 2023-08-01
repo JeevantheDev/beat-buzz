@@ -62,7 +62,7 @@ export const Playlist: React.FC<IProps> = ({
           height: '150px',
         }}
       >
-        <img src={thumbnail || DEFAULT_IMAGE} alt={title} />
+        <img loading="lazy" src={thumbnail || DEFAULT_IMAGE} alt={title} />
       </IonThumbnail>
       {!onlyThumbnail && (
         <div className="playlist-text-container">

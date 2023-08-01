@@ -13,7 +13,7 @@ export const PlayerThumbnail: React.FC<IProps> = ({
   return (
     <div className="player-thumbnail">
       <IonThumbnail style={{ '--size': '100%', '--border-radius': '10%' }}>
-        <img src={audioThumbnail} alt={audioTitle} />
+        <img loading="lazy" src={audioThumbnail} alt={audioTitle} />
       </IonThumbnail>
       <div className="player-title">
         <IonLabel>
