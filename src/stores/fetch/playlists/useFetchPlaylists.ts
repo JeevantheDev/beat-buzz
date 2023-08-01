@@ -159,8 +159,15 @@ export const useFetchPlaylists = () => {
     },
   };
 
+  const setter = {
+    setPlaylistError(value: string | null) {
+      state.playlistError.set(value);
+    },
+  };
+
   return {
     ...getter,
+    ...setter,
     fetchPlaylistsByUser,
     playlistFormAction,
     deletePlaylists,

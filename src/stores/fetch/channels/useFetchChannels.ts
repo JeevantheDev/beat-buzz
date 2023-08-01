@@ -10,12 +10,6 @@ interface ChannelState {
 
 const initState: ChannelState = hookstate({
   isChannelLoading: false,
-  // channels: Array.from({ length: 8 }).map((_, idx) => ({
-  //   videoChannel: "Jeevan Channel",
-  //   videoChannelId: 234,
-  //   videoChannelThumbnail:
-  //     "https://yt3.ggpht.com/y1F4EOGuP19nZcBlzcyCtnHiYhkAOPQiRxwKeaGrOjXarUZZjcx_heiDiC06_Qj6ERea_qWK9A=s176-c-k-c0x00ffffff-no-rj-mo",
-  // })),
   channels: [],
   channel: null,
   channelError: null,
@@ -67,8 +61,15 @@ export const useFetchChannels = () => {
     },
   };
 
+  const setter = {
+    setChannelError(value: string | null) {
+      state.channelError.set(value);
+    },
+  };
+
   return {
     ...getter,
+    ...setter,
     fetchAllChannels,
   };
 };

@@ -49,6 +49,10 @@ export const useYoutubeServices = () => {
     setSongInfo(value: SongInfo | null) {
       state.songInfo.set(value);
     },
+
+    setSongInfoError(value: string | null) {
+      state.songInfoError.set(value);
+    },
   };
 
   const getter = {

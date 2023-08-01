@@ -38,7 +38,7 @@ export const useAuth = () => {
     state.errorMessage.set(null);
     userTokenState.set('');
     localStorage.clear();
-    history.push('/splash');
+    history?.push('/splash');
   };
 
   const validUserAction = async () => {
@@ -52,7 +52,6 @@ export const useAuth = () => {
           response?.data?.message || 'Something went wrong!!!'
         );
         logoutAction();
-        console.log('here');
       } else {
         const { data } = response.data as UserAuthResponse;
         state.isLoggedin.set(true);
@@ -65,7 +64,7 @@ export const useAuth = () => {
               }
             : null
         );
-        history.push('/tab/home');
+        history?.push('/tab/home');
       }
       state.authLoading.set(false);
     } catch (error) {
@@ -191,13 +190,17 @@ export const useAuth = () => {
     },
 
     get getError() {
-      return state.errorMessage;
+      return state.errorMessage.get();
     },
   };
 
   const setter = {
     setAuthLoading(value: true | false) {
       state.authLoading.set(value);
+    },
+
+    setErrorMesage(value: string | null) {
+      state.errorMessage.set(value);
     },
   };
 

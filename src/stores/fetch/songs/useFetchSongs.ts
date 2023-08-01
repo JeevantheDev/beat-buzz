@@ -257,6 +257,10 @@ export const useFetchSongs = () => {
     state.currentSong.set(song);
   };
 
+  const setSongError = (value: string | null) => {
+    state.songError.set(value);
+  };
+
   const getter = {
     get getSongLoading() {
       return state.isSongLoading.get();
@@ -297,6 +301,7 @@ export const useFetchSongs = () => {
     setSongsByPlayer,
     setCurrentSong,
     setSongsBySearch,
+    setSongError,
   };
 
   return {
