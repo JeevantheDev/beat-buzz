@@ -1,6 +1,8 @@
 # BeatBuzz
 
 - Built an immersive music app using Ionic JS frontend and Node.js Express microservices with PostgreSQL for data management, delivering an engaging user experience.
+## Download APK - (Android APK Scan to use)
+![beat-buzz-download](https://github.com/JeevantheDev/beat-buzz/assets/54455309/66f24ebc-96bd-4056-8ac5-cce5e6b51df9)
 
 ## Screenshots:
 
